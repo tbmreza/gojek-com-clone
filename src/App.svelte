@@ -6,11 +6,17 @@
   import Carousel from "@beyonk/svelte-carousel";
   import Header from "./Header.svelte";
   import Modal from "modal-overlay";
+  import Times from "./TimesIcon.svelte";
 
   const fraction = 0.8;
   let w;
-  let open = false;
   let show = false;
+
+  $: mobile = w < 650;
+
+  function closeSnackbar() {
+    mobile = false;
+  }
 </script>
 
 <style>
@@ -23,10 +29,7 @@
     margin-right: auto;
     margin-bottom: 16px;
   }
-  #install-app {
-    position: sticky;
-    bottom: 0;
-  }
+
   .header__menu--modal {
     display: flex;
     flex-direction: column;
@@ -35,24 +38,44 @@
   .header__menu--modal > a {
     margin: 1em 0;
   }
+
+  /* snackbar */
+  .install-app {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .install-app #left {
+    display: flex;
+    align-items: center;
+  }
+  .install-app__logo > img {
+    margin: 0 1em;
+    width: 64px;
+  }
+  .install-app__caption > p {
+    font-size: 10px;
+  }
+  .install-app__caption > * {
+    margin: 0;
+  }
+  .pointer:hover {
+    cursor: pointer;
+  }
 </style>
 
 <svelte:window bind:innerWidth={w} />
 
 <div id="main">
   <Header {w} ml={(w * (1 - fraction)) / 2} bind:show />
-  <Hero {w} />
+  <!-- <Hero {w} /> -->
   <div style="margin-top:16px;">
     <About w={w * fraction} />
   </div>
   <div>
     <OurServices w={w * fraction} />
   </div>
-  <div id="install-app">
-    <Snackbar w={w * 0.95} />
-  </div>
 </div>
-
 {#if show}
   <Modal>
     <div class="header__menu--modal">
@@ -64,4 +87,26 @@
       <a href="https://www.gojek.com/">Safety</a>
     </div>
   </Modal>
+{/if}
+
+{#if mobile}
+  <Snackbar>
+    <div class="install-app">
+      <div id="left">
+        <div class="install-app__x pointer" on:click={closeSnackbar}>
+          <Times />
+        </div>
+        <div class="install-app__logo">
+          <img alt="Gojek App" src="static/images/Gojek_ID2x.jpg" />
+        </div>
+        <div class="install-app__caption">
+          <h5>Gojek App</h5>
+          <p>One app for every need</p>
+        </div>
+      </div>
+      <a href="https://www.gojek.com/">
+        <button class="pointer">Open</button>
+      </a>
+    </div>
+  </Snackbar>
 {/if}

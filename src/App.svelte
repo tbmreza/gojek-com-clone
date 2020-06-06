@@ -25,9 +25,9 @@
     flex-direction: column;
   }
   #main > div {
-    margin-left: auto;
-    margin-right: auto;
+    margin: 0 auto;
     margin-bottom: 16px;
+    /* margin: auto; */
   }
 
   .header__menu--modal {
@@ -66,14 +66,14 @@
 
 <svelte:window bind:innerWidth={w} />
 
+<Header ml={(w * (1 - fraction)) / 2} bind:show />
+<Hero {w} />
 <div id="main">
-  <Header {w} ml={(w * (1 - fraction)) / 2} bind:show />
-  <!-- <Hero {w} /> -->
   <div style="margin-top:16px;">
     <About w={w * fraction} />
   </div>
   <div>
-    <OurServices w={w * fraction} />
+    <OurServices />
   </div>
 </div>
 {#if show}

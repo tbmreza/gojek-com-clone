@@ -1,5 +1,4 @@
 <script>
-  export let w = 0;
   export let name = "";
   export let desc = "";
   export let items = [];
@@ -15,6 +14,9 @@
   .card img {
     margin: 1em 0;
   }
+  .service {
+    overflow: hidden;
+  }
   .service__xscroll {
     display: flex;
     overflow-x: scroll;
@@ -25,7 +27,7 @@
   }
 </style>
 
-<div class="service" style="width:{w}px;">
+<div class="service" style="width:90vw;">
   <div class="service__caption">
     <h3>{name}</h3>
     <p>{desc}</p>

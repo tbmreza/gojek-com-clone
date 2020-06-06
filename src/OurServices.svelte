@@ -1,5 +1,4 @@
 <script>
-  export let w = 0;
   import Service from "./Service.svelte";
 
   const services = [
@@ -50,5 +49,5 @@
 <h2>Our Services</h2>
 
 {#each services as s}
-  <Service {w} name={s.name} desc={s.desc} items={s.items} />
+  <Service name={s.name} desc={s.desc} items={s.items} />
 {/each}
